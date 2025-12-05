@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sensorium Project | Sinclair Emoghene</title>
+    <meta name="description" content="Affective Computation, Haptic Sensing, and Dance — A practice-led research initiative.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --white: #ffffff;
+            --black: #0a0a0a;
+            --gray-light: #f5f5f5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --violet: #6B4CE6;
+            --coral: #FF6B35;
+            --mint: #00E676;
+            --yellow: #FFD600;
+            --blue: #0066FF;
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            font-weight: 400;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px 10px;
+            background: rgba(10, 10, 10, 0.9);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .side-nav a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .side-nav a:hover {
+            color: var(--white);
+            border-color: var(--violet);
+            background: rgba(107, 76, 230, 0.2);
+        }
+        
+        .side-nav a.home-link {
+            color: var(--mint);
+            font-size: 1em;
+        }
+        
+        .side-nav a.home-link:hover {
+            border-color: var(--mint);
+            background: rgba(0, 230, 118, 0.2);
+        }
+        
+        .press-link:hover {
+            border-color: var(--violet) !important;
+            box-shadow: 0 4px 20px rgba(107, 76, 230, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero - Perron Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 50px 80px 70px;
+            background: var(--white);
+            position: relative;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4em, 15vw, 12em);
+            font-weight: 400;
+            text-align: center;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title .line1 {
+            display: block;
+            color: var(--black);
+        }
+        
+        .hero-title .line2 {
+            display: block;
+            color: var(--violet);
+            font-style: italic;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1em;
+            font-weight: 300;
+            color: var(--gray);
+            text-align: center;
+            max-width: 500px;
+            margin-bottom: 50px;
+        }
+        
+        .hero-image {
+            width: 70%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        .hero-caption {
+            display: flex;
+            justify-content: space-between;
+            width: 70%;
+            max-width: 900px;
+            margin-top: 15px;
+            font-size: 0.7em;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 60px 50px 60px 70px;
+            background: var(--black);
+            color: var(--white);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 400;
+            color: var(--mint);
+        }
+        
+        .stat-label {
+            font-size: 0.65em;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 120px 50px 120px 70px;
+        }
+        
+        .section-label {
+            font-size: 0.65em;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5em, 6vw, 4.5em);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+        
+        h2 .accent {
+            color: var(--violet);
+            font-style: italic;
+        }
+        
+        /* Two Column - Lala Land style */
+        .intro-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .intro-text p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: var(--gray-dark);
+            margin-bottom: 25px;
+        }
+        
+        .intro-text p:first-of-type {
+            font-size: 1.4em;
+            font-weight: 300;
+            color: var(--black);
+        }
+        
+        .intro-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Scattered Gallery - +OO Berlin style */
+        .scattered-section {
+            background: var(--black);
+            padding: 150px 50px 150px 70px;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .scattered-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3em, 10vw, 8em);
+            font-weight: 400;
+            color: var(--white);
+            text-align: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .scattered-title span {
+            display: block;
+            color: var(--mint);
+            font-style: italic;
+        }
+        
+        .floating-images {
+            position: relative;
+            width: 100%;
+            height: 800px;
+        }
+        
+        .float-img {
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+        
+        .float-img:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .float-img img {
+            display: block;
+            object-fit: cover;
+        }
+        
+        .float-img .num {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7em;
+            color: var(--gray);
+            margin-top: 8px;
+            letter-spacing: 0.1em;
+        }
+        
+        .float-img:nth-child(1) { top: 5%; left: 5%; }
+        .float-img:nth-child(1) img { width: 280px; height: 180px; }
+        
+        .float-img:nth-child(2) { top: 15%; right: 10%; }
+        .float-img:nth-child(2) img { width: 220px; height: 300px; }
+        
+        .float-img:nth-child(3) { top: 45%; left: 15%; }
+        .float-img:nth-child(3) img { width: 200px; height: 130px; }
+        
+        .float-img:nth-child(4) { bottom: 20%; left: 8%; }
+        .float-img:nth-child(4) img { width: 250px; height: 160px; }
+        
+        .float-img:nth-child(5) { bottom: 10%; right: 20%; }
+        .float-img:nth-child(5) img { width: 300px; height: 200px; }
+        
+        .float-img:nth-child(6) { top: 60%; right: 5%; }
+        .float-img:nth-child(6) img { width: 180px; height: 240px; }
+        
+        /* Archive Grid - Perron Archive style */
+        .archive-section {
+            background: var(--white);
+            padding: 120px 50px 120px 70px;
+        }
+        
+        .archive-header {
+            display: flex;
+            gap: 100px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+        
+        .archive-nav {
+            min-width: 200px;
+        }
+        
+        .archive-nav h4 {
+            font-size: 0.7em;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+        
+        .archive-nav ul {
+            list-style: none;
+        }
+        
+        .archive-nav li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 0.85em;
+        }
+        
+        .archive-nav li span:first-child {
+            color: var(--gray-dark);
+        }
+        
+        .archive-nav li span:last-child {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .archive-nav li.active span:first-child {
+            color: var(--violet);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            flex: 1;
+        }
+        
+        .archive-item {
+            cursor: pointer;
+        }
+        
+        .archive-item img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s;
+        }
+        
+        .archive-item:hover img {
+            opacity: 0.8;
+        }
+        
+        .archive-item h5 {
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .archive-item p {
+            font-size: 0.8em;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 5px;
+        }
+        
+        /* Video Section */
+        .video-section {
+            background: var(--gray-light);
+            padding: 120px 50px 120px 70px;
+        }
+        
+        .video-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: var(--black);
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* System Section - Clean columns */
+        .system-section {
+            background: var(--white);
+            padding: 120px 50px 120px 70px;
+        }
+        
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .system-col {
+            border-top: 3px solid var(--black);
+            padding-top: 30px;
+        }
+        
+        .system-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .system-col h4 .num {
+            color: var(--violet);
+            font-style: italic;
+            margin-right: 10px;
+        }
+        
+        .system-col p {
+            font-size: 0.95em;
+            color: var(--gray-dark);
+            line-height: 1.7;
+        }
+        
+        /* Lab Section */
+        .lab-section {
+            background: var(--black);
+            padding: 120px 50px 120px 70px;
+            color: var(--white);
+        }
+        
+        .lab-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .lab-header h2 {
+            color: var(--white);
+        }
+        
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .lab-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+        
+        .lab-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.4s;
+        }
+        
+        .lab-item:hover img {
+            filter: grayscale(0%);
+        }
+        
+        .lab-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+        
+        /* Future Section */
+        .future-section {
+            background: linear-gradient(135deg, var(--violet) 0%, #4A2FC9 100%);
+            padding: 120px 50px 120px 70px;
+            color: var(--white);
+        }
+        
+        .future-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .future-header .section-label {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .future-header h2 {
+            color: var(--white);
+        }
+        
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .future-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 0;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        
+        .future-card:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .future-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .future-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .future-card p {
+            font-size: 0.85em;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* Team Section */
+        .team-section {
+            background: var(--white);
+            padding: 120px 50px 120px 70px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+        
+        .team-col h4 {
+            font-size: 0.65em;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .team-col p {
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        
+        .team-col .name {
+            font-weight: 600;
+            color: var(--black);
+        }
+        
+        .team-col .role {
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: var(--black);
+            padding: 150px 50px 150px 70px;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .cta-section h2 {
+            color: var(--white);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-section p {
+            font-size: 1.1em;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: var(--mint);
+            color: var(--black);
+            font-size: 0.75em;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 60px 50px 60px 70px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            color: var(--white);
+        }
+        
+        .footer-logo span {
+            font-style: italic;
+            color: var(--violet);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-links a {
+            font-size: 0.75em;
+            color: var(--gray);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .footer-copy {
+            text-align: center;
+            font-size: 0.7em;
+            color: var(--gray);
+            letter-spacing: 0.1em;
+        }
+        
+        .photo-credit {
+            margin-top: 15px;
+            font-size: 0.6em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .side-nav {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                border-radius: 8px;
+            }
+            
+            .hero, section, .stats-bar, .scattered-section, .archive-section, 
+            .video-section, .system-section, .lab-section, .future-section, 
+            .team-section, .cta-section, footer {
+                padding-left: 50px;
+            }
+            
+            .intro-section, .archive-header, .system-grid, 
+            .lab-grid, .future-grid, .team-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .lab-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .future-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lab-item.wide {
+                grid-column: span 1;
+                aspect-ratio: 1;
+            }
+            
+            .floating-images {
+                height: auto;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .float-img {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+            }
+            
+            .float-img img {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 4/3;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(2.5em, 12vw, 4em);
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+            
+            .archive-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+        <a href="https://www.sinclair.dance" class="home-link" title="Sinclair Dance">←</a>
+        <a href="#about" title="About">Ab</a>
+        <a href="#archive" title="Archive">Ar</a>
+        <a href="#lab" title="Lab">Lb</a>
+        <a href="#future" title="Future">Fu</a>
+        <a href="#team" title="Team">Tm</a>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="hero-title">
+            <span class="line1">SENSORIUM</span>
+            <span class="line2">Project</span>
+        </h1>
+        <p class="hero-subtitle">Affective Computation, Haptic Sensing, and Dance — A Practice-Led Research Initiative</p>
+        <div class="hero-image">
+            <img src="images/perf_11.png" alt="Me Duniya Performance">
+        </div>
+        <div class="hero-caption">
+            <span>Me Duniya Performance, 2024</span>
+            <span>Photo: Sarah A. Navarrete</span>
+        </div>
+    </section>
+    
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-number">03</div>
+            <div class="stat-label">Sensor Layers</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">28</div>
+            <div class="stat-label">Performance Stills</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">02</div>
+            <div class="stat-label">Project Phases</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Possibilities</div>
+        </div>
+    </div>
+    
+    <!-- Intro Section -->
+    <section id="about">
+        <div class="intro-section">
+            <div class="intro-text">
+                <div class="section-label">Overview</div>
+                <h2>What happens when a dancing body and <span class="accent">soft robotics</span> begin to think together?</h2>
+                <p>The Sensorium Project treats the dancing body as both instrument and sensor array.</p>
+                <p>Working with soft fluidic pressure sensors, micro-vibration elements, and wearable interfaces, we ask how movement, pressure, and touch can be translated into light, sound, and texture without flattening the complexity of feeling.</p>
+                <p>Rather than chasing emotion labels like "happy" or "sad," this work focuses on affective fields: the intensities, weights, and textures that pass through the body as it moves.</p>
+            </div>
+            <div class="intro-image">
+                <img src="images/sleeve_03.jpg" alt="Testing the soft fluidic sleeve">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Scattered Gallery -->
+    <section class="scattered-section">
+        <div class="scattered-title">
+            ME<br><span>DUNIYA</span>
+        </div>
+        <div class="floating-images">
+            <div class="float-img">
+                <img src="images/perf_05.png" alt="Performance">
+                <div class="num">001</div>
+            </div>
+            <div class="float-img">
+                <img src="images/perf_03.png" alt="Performance">
+                <div class="num">002</div>
+            </div>
+            <div class="float-img">
+                <img src="images/perf_10.png" alt="Performance">
+                <div class="num">003</div>
+            </div>
+            <div class="float-img">
+                <img src="images/perf_08.png" alt="Performance">
+                <div class="num">004</div>
+            </div>
+            <div class="float-img">
+                <img src="images/video_01.png" alt="Performance">
+                <div class="num">005</div>
+            </div>
+            <div class="float-img">
+                <img src="images/perf_09.png" alt="Performance">
+                <div class="num">006</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="section-label" style="text-align: center;">Phase 01 Documentation</div>
+            <h2 style="text-align: center; margin-bottom: 50px;">Watch the <span class="accent">Performance</span></h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/6JwMrhSwcDU?rel=0" title="The Sensorium Project - Me Duniya" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Archive Grid -->
+    <section class="archive-section" id="archive">
+        <div class="archive-header">
+            <div class="archive-nav">
+                <h4>Project Archive</h4>
+                <ul>
+                    <li class="active"><span>All</span><span>028</span></li>
+                    <li><span>Performance</span><span>011</span></li>
+                    <li><span>Lab</span><span>007</span></li>
+                    <li><span>Rehearsal</span><span>003</span></li>
+                    <li><span>Wearables</span><span>003</span></li>
+                    <li><span>Video Stills</span><span>004</span></li>
+                </ul>
+            </div>
+            <div class="archive-grid">
+                <div class="archive-item">
+                    <img src="images/perf_01.png" alt="Performance">
+                    <h5>Ensemble</h5>
+                    <p>Performance (2024)</p>
+                </div>
+                <div class="archive-item">
+                    <img src="images/perf_02.png" alt="Performance">
+                    <h5>Structure</h5>
+                    <p>Performance (2024)</p>
+                </div>
+                <div class="archive-item">
+                    <img src="images/perf_04.png" alt="Performance">
+                    <h5>Solo</h5>
+                    <p>Performance (2024)</p>
+                </div>
+                <div class="archive-item">
+                    <img src="images/perf_06.png" alt="Performance">
+                    <h5>Light Props</h5>
+                    <p>Performance (2024)</p>
+                </div>
+                <div class="archive-item">
+                    <img src="images/perf_07.png" alt="Performance">
+                    <h5>Formation</h5>
+                    <p>Performance (2024)</p>
+                </div>
+                <div class="archive-item">
+                    <img src="images/sleeve_02.jpg" alt="Sleeve">
+                    <h5>Fluidic Sleeve</h5>
+                    <p>Wearables (2024)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- System Section -->
+    <section class="system-section">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-label">System Architecture</div>
+            <h2>The ACCS: How the <span class="accent">System Thinks</span></h2>
+        </div>
+        <div class="system-grid">
+            <div class="system-col">
+                <h4><span class="num">01</span> Hardware Layer</h4>
+                <p>Soft fluidic pressure sensors embedded in silicone sleeves, micro-vibration elements, and wearable rings register changes in pressure, bend, speed, and orientation. The body becomes a multi-channel transmitter.</p>
+            </div>
+            <div class="system-col">
+                <h4><span class="num">02</span> Signal Processing</h4>
+                <p>Raw signals are cleaned and transformed into features like intensity, stability, and fluctuation. The system learns to read qualities: turbulent or steady, compressed or expanded, gripping or releasing.</p>
+            </div>
+            <div class="system-col">
+                <h4><span class="num">03</span> Affective Atmosphere</h4>
+                <p>Processed signals drive the visual and sonic environment: shifting light temperatures, projection dynamics, spatial audio. Like dancing inside a weather system you help create.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lab Section -->
+    <section class="lab-section" id="lab">
+        <div class="lab-header">
+            <div class="section-label" style="color: var(--mint);">Research & Development</div>
+            <h2>Inside the <span style="color: var(--mint); font-style: italic;">Lab</span></h2>
+        </div>
+        <div class="lab-grid">
+            <div class="lab-item wide"><img src="images/lab_01.jpg" alt="Lab"></div>
+            <div class="lab-item"><img src="images/lab_04.jpg" alt="Lab"></div>
+            <div class="lab-item"><img src="images/lab_02.jpg" alt="Lab"></div>
+            <div class="lab-item"><img src="images/lab_03.jpg" alt="Lab"></div>
+            <div class="lab-item"><img src="images/lab_06.jpg" alt="Lab"></div>
+            <div class="lab-item wide"><img src="images/sleeve_01.jpg" alt="Sleeve"></div>
+        </div>
+    </section>
+    
+    <!-- Future Section -->
+    <section class="future-section" id="future">
+        <div class="future-header">
+            <div class="section-label">Phase 02 — In Development</div>
+            <h2>Imagining Shared <span style="font-style: italic;">Haptic Futures</span></h2>
+        </div>
+        <div class="future-grid">
+            <div class="future-card">
+                <div class="future-icon">⬚</div>
+                <h4>Haptic Floors</h4>
+                <p>Surfaces that translate dancer pressure into tremors others can feel</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">◯</div>
+                <h4>Wearable Bands</h4>
+                <p>For participants who may not see or hear, but can feel dynamics on skin</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">◇</div>
+                <h4>Shared Channels</h4>
+                <p>Multiple bodies feeling the same evolving "weather" through different interfaces</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">⊕</div>
+                <h4>Remote Presence</h4>
+                <p>Feel a live performance from another city through local haptic devices</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div class="section-label">Collaborators</div>
+            <h2>The <span class="accent">Team</span></h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-col">
+                <h4>Lead Artist & PI</h4>
+                <p><span class="name">Sinclair Emoghene</span><br>
+                <span class="role">Assistant Professor of Dance<br>
+                Department of Theatre and Dance<br>
+                The University of Texas at Austin</span></p>
+            </div>
+            <div class="team-col">
+                <h4>Key Collaborators</h4>
+                <p><span class="name">Dr. Lillian Chin</span><br>
+                <span class="role">Soft robotics and haptic sensing</span></p>
+                <p style="margin-top: 15px;"><span class="name">Desne Wharton</span><br>
+                <span class="role">Projection and visual design</span></p>
+                <p style="margin-top: 15px;"><span class="name">Hrishikesh Sahu</span><br>
+                <span class="role">Chin Lab, Cockrell School of Engineering<br>
+                The University of Texas at Austin</span></p>
+                <p style="margin-top: 15px;"><span class="name">Ava Schraeder</span><br>
+                <span class="role">Chin Lab, Cockrell School of Engineering<br>
+                The University of Texas at Austin</span></p>
+            </div>
+            <div class="team-col">
+                <h4>Support</h4>
+                <p><span class="role">Creative Research Funds<br>
+                College of Fine Arts<br>
+                Department of Theatre and Dance<br>
+                The University of Texas at Austin</span></p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Press Section -->
+    <section class="press-section" style="padding: 80px 50px 80px 70px; background: var(--gray-light);">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+            <div class="section-label" style="color: var(--violet);">Featured In</div>
+            <h2 style="margin-bottom: 40px;">Press & <span class="accent">Media</span></h2>
+            <a href="https://cockrell.utexas.edu/news/wired-for-rhythm/" target="_blank" rel="noopener" class="press-link" style="display: inline-block; padding: 25px 50px; background: var(--white); border: 1px solid var(--gray); border-radius: 8px; text-decoration: none; color: var(--black); transition: all 0.3s; max-width: 600px;">
+                <div style="font-size: 0.65em; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral); margin-bottom: 10px;">Cockrell School of Engineering</div>
+                <div style="font-family: 'Playfair Display', serif; font-size: 1.5em; margin-bottom: 8px;">Wired for Rhythm</div>
+                <div style="font-size: 0.9em; color: var(--gray);">How dance and soft robotics are creating new ways to feel performance</div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Let's Think and <span style="color: var(--mint); font-style: italic;">Feel</span> Together</h2>
+        <p>If you are a dancer, engineer, haptics researcher, access practitioner, or someone who cares about how bodies connect—The Sensorium Project is open to conversation.</p>
+        <a href="mailto:sinclair.emoghene@austin.utexas.edu" class="cta-btn">Get in Touch</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Sinclair <span>Emoghene</span></div>
+            <div class="footer-links">
+                <a href="https://www.sinclair.dance">Website</a>
+                <a href="https://theatredance.utexas.edu/profile/emoghene-sinclair">Faculty Bio</a>
+                <a href="https://github.com/SynckDance">GitHub</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Sinclair Emoghene. All rights reserved.</p>
+        <p class="photo-credit footer-copy">Photo credits: Sarah A. Navarrete, courtesy of The University of Texas at Austin | Hrishikesh Sahu | Sinclair Emoghene</p>
+    </footer>
+</body>
+</html>
